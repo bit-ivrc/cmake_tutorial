@@ -1,0 +1,10 @@
+set(tinyspline_VERSION 0.0.1)
+SET(tinyspline_VERSION_MAJOR  0)
+SET(tinyspline_VERSION_MINOR  0)
+SET(tinyspline_VERSION_PATCH  1)
+SET(tinyspline_VERSION_TWEAK  0)
+
+@PACKAGE_INIT@
+set_and_check(tinyspline_INCLUDE_DIRS "@PACKAGE_INCLUDE_INSTALL_DIR@")
+set_and_check(tinyspline_LIBRARIES "@PACKAGE_LIB_INSTALL_DIR@")
+set_and_check(tinyspline_CONFIG "@PACKAGE_CONFIG_INSTALL_DIR@")
