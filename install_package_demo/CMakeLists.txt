@@ -33,6 +33,7 @@ install(FILES ${LIB_HEADER_FILES}
 set(LIB_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/lib")
 set(INCLUDE_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/include")
 set(CONFIG_INSTALL_DIR "${LIB_INSTALL_DIR}/cmake")
+set(LIB "${LIB_INSTALL_DIR}/libtinyspline.a")
 
 # generate config file and version file using CMakePackageConfigHelpers
 include(CMakePackageConfigHelpers)
@@ -45,7 +46,7 @@ configure_package_config_file(
   cmake/tinysplineConfig.cmake.in
   tinysplineConfig.cmake
   INSTALL_DESTINATION ${CONFIG_INSTALL_DIR}
-  PATH_VARS LIB_INSTALL_DIR INCLUDE_INSTALL_DIR CONFIG_INSTALL_DIR)
+  PATH_VARS LIB INCLUDE_INSTALL_DIR LIB_INSTALL_DIR CONFIG_INSTALL_DIR)
 
 #install .cmake files
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/tinysplineConfigVersion.cmake ${CMAKE_CURRENT_BINARY_DIR}/tinysplineConfig.cmake

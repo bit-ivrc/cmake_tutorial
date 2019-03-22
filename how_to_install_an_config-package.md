@@ -56,7 +56,8 @@ SET(tinyspline_VERSION_TWEAK  0)
 
 @PACKAGE_INIT@
 set_and_check(tinyspline_INCLUDE_DIRS "@PACKAGE_INCLUDE_INSTALL_DIR@")
-set_and_check(tinyspline_LIBRARIES "@PACKAGE_LIB_INSTALL_DIR@")
+set_and_check(tinyspline_LIBRARY_DIRS "@PACKAGE_LIB_INSTALL_DIR@")
+set_and_check(tinyspline_LIBRARIES "@PACKAGE_LIB@")
 set_and_check(tinyspline_CONFIG "@PACKAGE_CONFIG_INSTALL_DIR@")
 ````
 然后写`CMakeLists.txt`文件:
@@ -96,6 +97,7 @@ install(FILES ${LIB_HEADER_FILES}
 set(LIB_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/lib")
 set(INCLUDE_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/include")
 set(CONFIG_INSTALL_DIR "${LIB_INSTALL_DIR}/cmake")
+set(LIB "${LIB_INSTALL_DIR}/libtinyspline.a")
 
 # generate config file and version file using CMakePackageConfigHelpers
 include(CMakePackageConfigHelpers)
@@ -108,10 +110,13 @@ configure_package_config_file(
   cmake/tinysplineConfig.cmake.in
   tinysplineConfig.cmake
   INSTALL_DESTINATION ${CONFIG_INSTALL_DIR}
-  PATH_VARS LIB_INSTALL_DIR INCLUDE_INSTALL_DIR CONFIG_INSTALL_DIR)
+  PATH_VARS LIB INCLUDE_INSTALL_DIR LIB_INSTALL_DIR CONFIG_INSTALL_DIR)
 
 #install .cmake files
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/tinysplineConfigVersion.cmake ${CMAKE_CURRENT_BINARY_DIR}/tinysplineConfig.cmake
   DESTINATION ${CONFIG_INSTALL_DIR})
+
+
 ````
 完整的例子在[install_package_demo](./install_package_demo)中, 可以使用cmake编译安装后观察生成的文件内容和安装位置.
+**上面生成配置文件的方式其实是很不完善的，里面没有考虑到这个库依赖于其他库的情况, 也不支持COMPONENTS。更好的方式应该是使用export指令，生成IMPORTED Target, 这种方式以后介绍。**
